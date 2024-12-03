@@ -10,10 +10,10 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.DTO.ClientDTO;
+import org.acme.DTO.ClientResponseDTO;
 import org.acme.entity.Client;
 import org.acme.repository.ClientRepositoryImpl;
 import org.acme.security.jwt.GenerateToken;
-import org.acme.security.jwt.JWTService;
 
 import java.time.LocalDateTime;
 
@@ -68,6 +68,8 @@ public class AuthController {
 
         String jwtToken = token.generateTokenJWT(user);
 
-        return Response.ok(jwtToken).build();
+        ClientResponseDTO response = new ClientResponseDTO(user.getEmail(), jwtToken);
+
+        return Response.ok(response).build();
     }
 }
