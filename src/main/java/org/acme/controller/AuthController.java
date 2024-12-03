@@ -66,10 +66,8 @@ public class AuthController {
                     .build();
         }
 
-        String token = JWTService.generateToken(user.email);
-        user.token = token;
-        user.validateToken = LocalDateTime.now().plusHours(2);
-        user.updatedAt = LocalDateTime.now();
-        return Response.ok(token).build();
+        String jwtToken = token.generateTokenJWT(user);
+
+        return Response.ok(jwtToken).build();
     }
 }
