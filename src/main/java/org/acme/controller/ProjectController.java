@@ -1,7 +1,6 @@
 package org.acme.controller;
 
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -16,15 +15,20 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProjectController {
 
-    @Inject
-    ProjectRepositoryImpl projectRepository;
+    private final ProjectRepositoryImpl projectRepository;
+    private final String errorProjectNotFound = "Project not found";
+
+    // Constructor injection
+    public ProjectController(ProjectRepositoryImpl projectRepository) {
+        this.projectRepository = projectRepository;
+    }
 
     @GET
     @RolesAllowed("User")
     public Response getAllProjects() {
         List<Project> projects = projectRepository.listAll();
-        return Response.ok(projects).build();
-    }
+            return Response.ok(projects).build();
+        }
 
     @GET
     @Path("/{id}")
@@ -32,7 +36,7 @@ public class ProjectController {
     public Response getProjectById(@PathParam("id") Long id) {
         Project project = projectRepository.findById(id);
         if (project == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Project not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity(errorProjectNotFound).build();
         }
         return Response.ok(project).build();
     }
@@ -52,7 +56,7 @@ public class ProjectController {
     public Response updateProject(@PathParam("id") Long id, Project updatedProject) {
         Project existingProject = projectRepository.findById(id);
         if (existingProject == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Project not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity(errorProjectNotFound).build();
         }
 
         existingProject.name = updatedProject.name;
@@ -72,7 +76,7 @@ public class ProjectController {
     public Response deleteProject(@PathParam("id") Long id) {
         Project project = projectRepository.findById(id);
         if (project == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Project not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity(errorProjectNotFound).build();
         }
         projectRepository.delete(project);
         return Response.noContent().build();

@@ -4,10 +4,6 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.core.Response;
-import org.acme.DTO.ClientDTO;
-import org.acme.DTO.ClientResponseDTO;
-import org.acme.entity.Client;
 
 @Path("/products")
 public class ProductController {

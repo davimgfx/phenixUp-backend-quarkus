@@ -29,6 +29,8 @@ public class AuthController {
     @Inject
     GenerateToken token;
 
+    private final Random random = new Random();
+
 
     @POST
     @Path("/signup")
@@ -46,14 +48,16 @@ public class AuthController {
         user.createdAt = LocalDateTime.now();
         user.updatedAt = LocalDateTime.now();
 
+
+
         // Gerar o token
         String jwtToken = token.generateTokenJWT(user);
-        System.out.println(jwtToken);
+        ClientResponseDTO clientDTO = new ClientResponseDTO(jwtToken);
 
         user.persist();
 
 
-        return Response.ok(jwtToken).build();
+        return Response.ok(clientDTO).build();
     }
 
     @POST
@@ -67,8 +71,7 @@ public class AuthController {
                     .build();
         }
 
-        Random random = new Random();
-        int randomToken = 100000 + random.nextInt(900000); // Gerar número no formato XXXXXX
+        int randomToken = 100000 + this.random.nextInt(900000); // Gerar número no formato XXXXXX
 
 
         user.setToken(String.valueOf(randomToken));
@@ -91,8 +94,8 @@ public class AuthController {
 
         String jwtToken = token.generateTokenJWT(user);
 
-        ClientResponseDTO response = new ClientResponseDTO(user.getEmail(), jwtToken);
+        ClientResponseDTO clientDTO = new ClientResponseDTO(jwtToken);
 
-        return Response.ok(response).build();
+        return Response.ok(clientDTO).build();
     }
 }

@@ -1,8 +1,11 @@
 C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\controller\AuthController.java
 C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\controller\ProductController.java
+C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\controller\ProjectController.java
 C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\DTO\ClientDTO.java
 C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\DTO\ClientResponseDTO.java
 C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\entity\Client.java
+C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\entity\Project.java
 C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\repository\ClientRepository.java
 C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\repository\ClientRepositoryImpl.java
+C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\repository\ProjectRepositoryImpl.java
 C:\Users\ADM\Desktop\Projetos\phenixUp-backend-quarkus\src\main\java\org\acme\security\jwt\GenerateToken.java
