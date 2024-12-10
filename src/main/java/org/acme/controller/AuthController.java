@@ -16,6 +16,7 @@ import org.acme.repository.ClientRepositoryImpl;
 import org.acme.security.jwt.GenerateToken;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 @Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
@@ -53,6 +54,28 @@ public class AuthController {
 
 
         return Response.ok(jwtToken).build();
+    }
+
+    @POST
+    @Path("/login/token")
+    @Transactional
+    public Response tokenLoginEmail(ClientDTO userDTO) {
+        Client user = clientRepository.findByEmail(userDTO.email);
+        if (user == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("Invalid email")
+                    .build();
+        }
+
+        Random random = new Random();
+        int randomToken = 100000 + random.nextInt(900000); // Gerar número no formato XXXXXX
+
+
+        user.setToken(String.valueOf(randomToken));
+        user.setValidateToken(LocalDateTime.now().plusDays(1)); // Define validade para um dia depois
+        user.persist();
+
+        return Response.ok(randomToken).build();
     }
 
     @POST
